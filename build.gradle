@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+
+mainClassName = 'com.peejaygal.home'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation     'junit:junit:4.13'
+    compile 'org.apache.poi:poi-ooxml-full:5.0.0'
+    compile 'org.apache.poi:poi-ooxml:5.0.0'
+    compile 'com.github.sarxos:webcam-capture:0.3.12'
+    compile 'com.google.zxing:core:3.4.1'
+    compile 'com.google.zxing:javase:3.4.1'
+}
+
+jar {
+    archiveName = 'javaTest.jar'
+
+    manifest {attributes 'Main-Class': 'com.peejaygal.home'}
+
+    from { (configurations.runtime).collect { it.isDirectory() ? it : zipTree(it) } } 
+{
+        exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+    }
+}
